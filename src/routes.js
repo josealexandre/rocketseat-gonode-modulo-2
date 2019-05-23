@@ -14,7 +14,8 @@ routes.get('/', SessionController.create)
 routes.post('/signin', SessionController.store)
 
 routes.get('/app/dashboard', (req, res) => {
-    res.render('dashboard')
+    console.log(req.session.user)
+    return res.render('dashboard')
 })
 
 module.exports = routes
