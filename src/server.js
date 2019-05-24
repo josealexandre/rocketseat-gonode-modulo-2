@@ -20,6 +20,7 @@ class App {
         this.express.use(express.urlencoded({ extended: false }))
         this.express.use(
             session({
+                name: 'root',
                 store: new RedisStore({
                     host: '172.17.0.2',
                     port: 6379,
