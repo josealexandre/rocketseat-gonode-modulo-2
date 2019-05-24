@@ -3,7 +3,8 @@ const nunjucks = require('nunjucks')
 const path = require('path')
 const routes = require('./routes')
 const session = require('express-session')
-const LokiStore = require('connect-loki')(session)
+const RedisStore = require('connect-redis')(session)
+const redis = require('redis').createClient()
 
 class App {
     constructor () {
@@ -19,14 +20,20 @@ class App {
         this.express.use(express.urlencoded({ extended: false }))
         this.express.use(
             session({
-                store: new LokiStore({
-                    path: path.resolve('tmp', 'session.db')
+                store: new RedisStore({
+                    host: '172.17.0.2',
+                    port: 6379,
+                    client: redis
                 }),
                 secret: 'MyAppSecret',
                 resave: false,
                 saveUninitialized: true
             })
         )
+
+        redis.on('error', function (err) {
+            console.log('Redis error: ' + err)
+        })
     }
 
     views () {
