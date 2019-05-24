@@ -5,6 +5,7 @@ const routes = require('./routes')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const redis = require('redis').createClient()
+const flash = require('connect-flash')
 
 class App {
     constructor () {
@@ -17,6 +18,7 @@ class App {
     }
 
     middlewares () {
+        this.express.use(flash())
         this.express.use(express.urlencoded({ extended: false }))
         this.express.use(
             session({
