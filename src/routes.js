@@ -4,6 +4,7 @@ const upload = require('multer')(multerConfig)
 
 const routes = express.Router()
 
+const FilesController = require('./app/controllers/FilesController')
 const UserController = require('./app/controllers/UserController')
 const SessionController = require('./app/controllers/SessionController')
 const DashboardController = require('./app/controllers/DashboardController')
@@ -17,6 +18,8 @@ routes.use((req, res, next) => {
 
     next()
 })
+
+routes.get('/files/:file', FilesController.show)
 
 routes.get('/signup', guestMiddleware, UserController.create)
 routes.post('/signup', upload.single('avatar'), UserController.store)
