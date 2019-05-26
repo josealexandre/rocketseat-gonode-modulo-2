@@ -10,9 +10,10 @@ API
 
 -   Express
 
-Template Engine
+View
 
--   Nunjucks
+-   Nunjucks (template engine)
+-   Flatpickr (lightweight date picker)
 
 Database
 
