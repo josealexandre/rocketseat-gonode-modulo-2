@@ -30,6 +30,7 @@ Other
 
 -   Multer (upload files)
 -   bcryptjs (encrypt passwords)
+-   Moment (javascript date library)
 
 Development
 
