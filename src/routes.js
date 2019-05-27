@@ -32,7 +32,7 @@ routes.post('/signin', SessionController.store)
 routes.use('/app', authMiddleware)
 routes.get('/app/logout', SessionController.destroy)
 routes.get('/app/dashboard', DashboardController)
-routes.get('/app/appointment/new/:providerId', AppointmentController.create)
+routes.get('/app/appointments/new/:providerId', AppointmentController.create)
 routes.get('/app/available/:providerId', AvailableController)
 
 module.exports = routes
