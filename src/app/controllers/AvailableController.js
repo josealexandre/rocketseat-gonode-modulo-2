@@ -39,12 +39,6 @@ class AvailableController {
                 .minute(minute)
                 .second(0)
 
-            // console.log(
-            //     `${value.format()} is after ${moment()}: ${value.isAfter(
-            //         moment()
-            //     )}`
-            // )
-
             return {
                 time,
                 value: value.format(),

@@ -45,7 +45,6 @@ class AppointmentController {
             }
         })
 
-        // console.log(JSON.parse(JSON.stringify(appointments)))
 
         return res.render('appointments/index', { appointments })
     }

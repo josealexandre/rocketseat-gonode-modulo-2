@@ -3,9 +3,8 @@ const nunjucks = require('nunjucks')
 const path = require('path')
 const routes = require('./routes')
 const session = require('express-session')
-// const RedisStore = require('connect-redis')(session)
-const LokiStore = require('connect-loki')(session)
-// const redis = require('redis').createClient()
+const RedisStore = require('connect-redis')(session)
+const redis = require('redis').createClient()
 const flash = require('connect-flash')
 const dateFilter = require('nunjucks-date-filter')
 
@@ -25,13 +24,10 @@ class App {
         this.express.use(
             session({
                 name: 'root',
-                // store: new RedisStore({
-                //     host: '172.17.0.2',
-                //     port: 6379,
-                //     client: redis
-                // }),
-                store: new LokiStore({
-                    path: path.resolve(__dirname, '..', 'tmp', 'session.db')
+                store: new RedisStore({
+                    host: '172.17.0.2',
+                    port: 6379,
+                    client: redis
                 }),
                 secret: 'MyAppSecret',
                 resave: false,
@@ -39,9 +35,9 @@ class App {
             })
         )
 
-        // redis.on('error', function (err) {
-        //     console.log('Redis error: ' + err)
-        // })
+        redis.on('error', function (err) {
+            console.log('Redis error: ' + err)
+        })
     }
 
     views () {
