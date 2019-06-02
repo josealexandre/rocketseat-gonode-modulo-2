@@ -45,7 +45,6 @@ class AppointmentController {
             }
         })
 
-
         return res.render('appointments/index', { appointments })
     }
 }
