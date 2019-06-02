@@ -1,4 +1,7 @@
 const { User, Appointment } = require('../models')
+const sequelize = require('sequelize')
+const { Op } = sequelize
+const moment = require('moment')
 
 class AppointmentController {
     async create (req, res) {
@@ -16,6 +19,35 @@ class AppointmentController {
         })
 
         return res.redirect('/app/dashboard')
+    }
+
+    async show (req, res) {
+        const appointments = await Appointment.findAll({
+            include: [
+                {
+                    model: User,
+                    as: 'user',
+                    where: { userId: sequelize.col('User.id') }
+                }
+            ],
+            where: {
+                providerId: req.session.user.id,
+                date: {
+                    [Op.between]: [
+                        moment()
+                            .startOf('day')
+                            .format(),
+                        moment()
+                            .endOf('day')
+                            .format()
+                    ]
+                }
+            }
+        })
+
+        // console.log(JSON.parse(JSON.stringify(appointments)))
+
+        return res.render('appointments/index', { appointments })
     }
 }
 
