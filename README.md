@@ -6,7 +6,7 @@ GoBarber app developed from 2nd Node.js module classes.
 
 Here are some frameworks and packages used in this project:
 
-API
+Server
 
 -   Express
 
@@ -37,7 +37,9 @@ Development
 -   Nodemon
 -   ESLint
 
-If you run this project you'll need a Redis server. Follow these instructions to run a redis container:
+## Instructions to run the project
+
+If you're gonna run this project you'll need a Redis server. Follow these instructions to run a redis container:
 
 `docker container run --name session-cache -p 6379:6379 -d redis`
 
@@ -54,3 +56,9 @@ store: new RedisStore({
     client: redis
 }),
 ```
+
+Before you run the application it's necessary to get all the dependencies of the project using the command `yarn` from inside the project folder.
+
+Then you can create a database (the project uses MariaDB) and finally create its tables running:
+
+`npx sequelize db:migrate`
